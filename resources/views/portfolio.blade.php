@@ -207,7 +207,7 @@
                             <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm">
-                                {{ substr($user->name, 0, 1) }}
+                                {{ substr($user->name, 0, 1) }}   
                             </div>
                         @endif
                     </div>
