@@ -31,30 +31,30 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /app
 
-# Copy composer files first for layer caching
+# Copy composer files first (layer caching optimization)
 COPY composer.json composer.lock ./
 
-# Install PHP dependencies (no dev, optimized)
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
 
-# Copy application files
+# Copy seluruh aplikasi
 COPY . .
 
 # Run post-install scripts
 RUN composer run-script post-autoload-dump --no-interaction || true
 
-# Set storage and cache permissions
+# Set storage dan cache permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
-# Copy Nginx and supervisor configs
+# Copy konfigurasi Nginx dan supervisor
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 
-# Expose port 10000 (Render default)
-EXPOSE 10000
+# Expose port 8000 (Koyeb default)
+EXPOSE 8000
 
-# Start script
+# Copy dan set permission start script
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
 

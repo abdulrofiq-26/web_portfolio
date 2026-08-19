@@ -1,21 +1,27 @@
 #!/bin/sh
 set -e
 
-echo "🚀 Starting Laravel deployment..."
+echo "========================================="
+echo " 🚀 Memulai deployment Laravel di Koyeb"
+echo "========================================="
 
-# Run Laravel artisan commands
-echo "⚙️  Caching config, routes, and views..."
+echo ""
+echo "⚙️  [1/4] Caching config, routes, dan views..."
 php /app/artisan config:cache
 php /app/artisan route:cache
 php /app/artisan view:cache
 
-echo "📦 Running database migrations..."
+echo ""
+echo "📦 [2/4] Menjalankan database migrations..."
 php /app/artisan migrate --force
 
-echo "🔗 Creating storage symlink..."
+echo ""
+echo "🔗 [3/4] Membuat storage symlink..."
 php /app/artisan storage:link || true
 
-echo "✅ Deployment complete! Starting services..."
+echo ""
+echo "✅ [4/4] Deployment selesai! Menjalankan Nginx + PHP-FPM..."
+echo ""
 
-# Start Nginx + PHP-FPM via supervisord
+# Start semua service via supervisord
 exec /usr/bin/supervisord -c /etc/supervisord.conf

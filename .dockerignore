@@ -15,8 +15,8 @@ public/storage
 public/hot
 public/build
 tests
-*.md
 .github
 .vscode
 .idea
 phpunit.xml
+render.yaml

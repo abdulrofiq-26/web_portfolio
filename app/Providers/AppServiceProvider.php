@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Force HTTPS in production (required for Render.com)
+        // Force HTTPS di production (Koyeb menyediakan SSL otomatis)
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
